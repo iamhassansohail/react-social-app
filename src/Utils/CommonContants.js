@@ -6,6 +6,10 @@ export const Routing = {
     ABOUT: {
         name: "AboutUs",
         link: "/about-us"
+    },
+    SINGLE_POST: {
+        name: "SinglePost",
+        link: "/post/:id"
     }
 };
 export const Colors = {
