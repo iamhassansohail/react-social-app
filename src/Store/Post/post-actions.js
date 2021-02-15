@@ -28,9 +28,10 @@ export const getAllPost = () => {
     });
 }
 // Get Single Post
-export const getPostById = (id) => {
+export const getPostById = (id , callback) => {
     return ((dispatch) => {
         dispatch(_setProcessing(true));
+
         axios.get("https://jsonplaceholder.typicode.com/posts/" + id)
             .then(res => {
                 console.log("Res", res);
@@ -39,6 +40,9 @@ export const getPostById = (id) => {
                 dispatch(_setError(false));
                 dispatch(_setProcessing(false));
 
+
+                callback && callback();
+
             })
             .catch(err => {
                 console.error(err);
@@ -46,6 +50,10 @@ export const getPostById = (id) => {
 
                 dispatch(_setError(true));
                 dispatch(_setProcessing(false));
+
+
+                callback && callback(err);
+
             })
 
 
@@ -54,7 +62,7 @@ export const getPostById = (id) => {
 
 
 // Dispatch Actions
-const _setProcessing = (payload) => {
+export const _setProcessing = (payload) => {
     return {
         type: Actions.SET_PROCESSING,
         payload
@@ -75,6 +83,13 @@ const _setPost = (payload) => {
 const _setSinglePost = (payload) => {
     return {
         type: Actions.SET_SINGLE_POSTS,
+        payload
+    }
+}
+
+const _setThis = (payload) => {
+    return {
+        type: "SET_SINGLE_POSTERS",
         payload
     }
 }
